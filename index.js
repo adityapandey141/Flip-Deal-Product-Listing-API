@@ -21,8 +21,17 @@ function sortedProducts(name1, name2) {
   }
 }
 
+
 app.get('/products', (req, res) => {
   res.json({products:productsData});
+});
+
+function sortByPopularity(rate1,rate2){
+  return rate2.rating-rate1.rating;
+}
+app.get('/products/sort/popularity', (req, res) => {
+  let sortedData = productsData.sort(sortByPopularity);
+  res.json({products:sortedData});
 });
 
 app.get('/products/sorted-by-name', (req, res) => {
@@ -42,7 +51,7 @@ app.get('/products/sort/price-high-to-low', (req, res) => {
   res.json({products:sortedData});
 });
 
-app.get('/products/sort/price-low-to-hign', (req, res) => {
+app.get('/products/sort/price-low-to-high', (req, res) => {
   let sortedData = productsData.sort(sortedByPriceAss);
   res.json({products:sortedData});
 });
@@ -68,7 +77,7 @@ app.get('/products/filter/rom', (req, res) => {
 });
 
 function filterByBrand(data, brand) {
-  return data.brand.toLowerCase() === brand;
+  return data.brand.toLowerCase() === brand.toLowerCase();
 }
 app.get('/products/filter/brand', (req, res) => {
   let givenBrand = req.query.brand;
