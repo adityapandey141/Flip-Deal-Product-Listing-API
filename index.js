@@ -22,7 +22,7 @@ function sortedProducts(name1, name2) {
 }
 
 app.get('/products', (req, res) => {
-  res.json(productsData);
+  res.json({products:productsData});
 });
 
 app.get('/products/sorted-by-name', (req, res) => {
